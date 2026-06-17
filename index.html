@@ -205,7 +205,8 @@ function buildRanking(){
 buildCorrTable();
 buildRanking();
 
-let hiddenCols=new Set(),currentMode='norm_s';
+const DEFAULT_VISIBLE=new Set(['Silver (SI1!)','Lot Converted']);
+let hiddenCols=new Set(ALL_COLS.filter(c=>!DEFAULT_VISIBLE.has(c))),currentMode='norm_s';
 function buildDatasets(mode){
   return ALL_COLS.map(col=>{
     const pts=DATA[mode][col],isPrice=PRICE_COLS.includes(col),isRaw=IS_RAW(mode);
@@ -277,7 +278,7 @@ document.getElementById('modeGroup').addEventListener('click',e=>{
 
 const legendWrap=document.getElementById('legendWrap');
 ALL_COLS.forEach(col=>{
-  const item=document.createElement('div');item.className='leg-item';
+  const item=document.createElement('div');item.className='leg-item'+(hiddenCols.has(col)?' hidden':'');
   item.innerHTML=`<span class="leg-dot" style="background:${COLORS[col]}"></span>${col}`;
   item.addEventListener('click',()=>{
     if(hiddenCols.has(col))hiddenCols.delete(col);else hiddenCols.add(col);
