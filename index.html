@@ -73,7 +73,13 @@
   .pb-fill{height:100%;border-radius:3px;}
   .pb-num{font-size:.67rem;color:var(--muted);width:20px;text-align:right;flex-shrink:0;}
   /* fixed height charts */
-  .chart-inner{height:340px;position:relative;}
+  .chart-inner{height:500px;position:relative;}
+  /* sort bar */
+  .sort-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+  .sort-bar span{font-size:.78rem;color:var(--muted);}
+  .sort-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:.78rem;transition:.15s;}
+  .sort-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;}
+  .sort-btn:hover:not(.active){color:var(--text);border-color:var(--accent);}
 </style>
 </head>
 <body>
@@ -140,6 +146,13 @@
   Recency · Frequency · Monetary · 10 phân khúc khách hàng
 </p>
 
+<div class="sort-bar">
+  <span>Sắp xếp:</span>
+  <button class="sort-btn active" data-sort="pct">% User Base</button>
+  <button class="sort-btn" data-sort="recency_score">Recency</button>
+  <button class="sort-btn" data-sort="freq_score">Frequency</button>
+  <button class="sort-btn" data-sort="vol_score">Volume</button>
+</div>
 <div class="seg-grid" id="segCards"></div>
 
 <div class="seg-charts">
@@ -397,11 +410,14 @@ function pbRow(label,score,color){
 }
 
 // ── Segment cards ─────────────────────────────────────────────────────────────
-CARD_DATA.forEach(c=>{
-  const color=SEG_COLORS[c.seg]||'#888', pct=(c.pct*100).toFixed(1);
-  const d=document.createElement('div');
-  d.className='seg-card'; d.style.borderLeftColor=color;
-  d.innerHTML=`<h3 style="color:${color}">${c.seg}</h3>
+function renderCards(sortKey){
+  const el=document.getElementById('segCards');
+  el.innerHTML='';
+  [...CARD_DATA].sort((a,b)=>b[sortKey]-a[sortKey]).forEach(c=>{
+    const color=SEG_COLORS[c.seg]||'#888', pct=(c.pct*100).toFixed(1);
+    const d=document.createElement('div');
+    d.className='seg-card'; d.style.borderLeftColor=color;
+    d.innerHTML=`<h3 style="color:${color}">${c.seg}</h3>
 <div class="seg-desc">${c.desc}</div>
 <div class="seg-stat"><span class="lbl">Traders</span><span class="val">${Math.round(c.traders)} (${pct}%)</span></div>
 <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:7px;">
@@ -409,7 +425,17 @@ ${pbRow('Recency',  c.recency_score,'#F59E0B')}
 ${pbRow('Frequency',c.freq_score,   '#60A5FA')}
 ${pbRow('Volume',   c.vol_score,    '#34D399')}
 </div>`;
-  document.getElementById('segCards').appendChild(d);
+    el.appendChild(d);
+  });
+}
+renderCards('pct');
+
+document.querySelectorAll('.sort-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCards(btn.dataset.sort);
+  });
 });
 
 // ── Legend ────────────────────────────────────────────────────────────────────
