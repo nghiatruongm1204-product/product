@@ -10,35 +10,48 @@
     --border:#38383F; --text:#D4D4D8; --muted:#71717A;
     --accent:#818CF8;
   }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; padding:24px; }
-  h1 { font-size:1.4rem; font-weight:600; text-align:center; margin-bottom:6px; }
-  .subtitle { text-align:center; color:var(--muted); font-size:.82rem; margin-bottom:20px; }
-  .toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }
-  .toolbar label { font-size:.78rem; color:var(--muted); margin-right:2px; }
-  .btn-group { display:flex; gap:4px; background:var(--surface2); border-radius:8px; padding:4px; }
-  .btn { background:transparent; border:none; color:var(--muted); padding:5px 12px;
-          border-radius:5px; cursor:pointer; font-size:.8rem; transition:.15s; }
-  .btn.active { background:var(--accent); color:#fff; font-weight:600; }
-  .btn:hover:not(.active) { color:var(--text); background:var(--border); }
-  .chart-wrap { background:var(--surface); border-radius:12px; padding:16px; }
-  #myChart { width:100% !important; }
-  .legend-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
-  .leg-item { display:flex; align-items:center; gap:6px; cursor:pointer;
-               padding:4px 10px; border-radius:20px; border:1px solid var(--border);
-               font-size:.8rem; transition:.15s; user-select:none; }
-  .leg-item:hover { border-color:var(--accent); }
-  .leg-item.hidden { opacity:.3; text-decoration:line-through; }
-  .leg-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-  .corr-table { margin-top:20px; background:var(--surface); border-radius:12px; padding:16px; overflow-x:auto; }
-  .corr-table h2 { font-size:1rem; margin-bottom:10px; }
-  table { border-collapse:collapse; width:100%; font-size:.82rem; }
-  th,td { padding:7px 14px; text-align:right; border-bottom:1px solid var(--surface2); }
-  th { color:var(--muted); font-weight:500; }
-  td:first-child, th:first-child { text-align:left; }
-  .pos { color:#6EE7B7; } .neg { color:#FCA5A5; }
-  .hint { color:var(--muted); font-size:.75rem; margin-top:8px; }
-  footer { text-align:center; color:var(--muted); font-size:.73rem; margin-top:24px; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;padding:24px;}
+  h1{font-size:1.4rem;font-weight:600;text-align:center;margin-bottom:6px;}
+  .subtitle{text-align:center;color:var(--muted);font-size:.82rem;margin-bottom:20px;}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+  .toolbar label{font-size:.78rem;color:var(--muted);margin-right:2px;}
+  .btn-group{display:flex;gap:4px;background:var(--surface2);border-radius:8px;padding:4px;}
+  .btn{background:transparent;border:none;color:var(--muted);padding:5px 12px;border-radius:5px;cursor:pointer;font-size:.8rem;transition:.15s;}
+  .btn.active{background:var(--accent);color:#fff;font-weight:600;}
+  .btn:hover:not(.active){color:var(--text);background:var(--border);}
+  .chart-wrap{background:var(--surface);border-radius:12px;padding:16px;position:relative;}
+  #myChart{width:100%!important;cursor:crosshair;}
+  .legend-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .leg-item{display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px 10px;border-radius:20px;border:1px solid var(--border);font-size:.8rem;transition:.15s;user-select:none;}
+  .leg-item:hover{border-color:var(--accent);}
+  .leg-item.hidden{opacity:.3;text-decoration:line-through;}
+  .leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+  /* shared card style */
+  .card{margin-top:20px;background:var(--surface);border-radius:12px;padding:20px;overflow-x:auto;}
+  .card h2{font-size:1rem;font-weight:600;margin-bottom:12px;}
+  table{border-collapse:collapse;width:100%;font-size:.82rem;}
+  th,td{padding:7px 14px;text-align:right;border-bottom:1px solid var(--surface2);}
+  th{color:var(--muted);font-weight:500;}
+  td:first-child,th:first-child{text-align:left;}
+  .pos{color:#6EE7B7;} .neg{color:#FCA5A5;}
+  .hint{color:var(--muted);font-size:.75rem;margin-top:8px;}
+
+  /* pair selector */
+  .pair-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px;}
+  .pair-row select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:.85rem;cursor:pointer;outline:none;}
+  .pair-row select:focus{border-color:var(--accent);}
+  .pair-result{font-size:1.1rem;font-weight:600;padding:8px 18px;border-radius:8px;background:var(--surface2);min-width:120px;text-align:center;}
+
+  /* ranking bar */
+  .rank-bar-bg{background:var(--surface2);border-radius:4px;height:8px;width:140px;display:inline-block;vertical-align:middle;}
+  .rank-bar{height:8px;border-radius:4px;display:block;}
+
+  /* rank medal */
+  .medal{font-size:.85rem;width:24px;display:inline-block;text-align:center;}
+
+  footer{text-align:center;color:var(--muted);font-size:.73rem;margin-top:24px;}
 </style>
 </head>
 <body>
@@ -60,10 +73,45 @@
 </div>
 <div class="legend-wrap" id="legendWrap"></div>
 
-<div class="corr-table">
-  <h2>Pearson Correlation — Silver (SI1!) vs Metrics</h2>
+<!-- Pearson table: Silver vs each metric -->
+<div class="card">
+  <h2>Pearson r — Silver (SI1!) vs Metrics</h2>
   <table id="corrTable"></table>
   <p class="hint">Click legend to hide/show · Double-click to isolate · Range: –1 (inverse) → +1 (direct)</p>
+</div>
+
+<!-- Pair selector -->
+<div class="card">
+  <h2>Tính tương quan theo cặp tuỳ chọn</h2>
+  <div class="pair-row">
+    <select id="selA"></select>
+    <span style="color:var(--muted)">vs</span>
+    <select id="selB"></select>
+    <div class="pair-result" id="pairResult">—</div>
+    <span style="color:var(--muted);font-size:.8rem;" id="pairN"></span>
+  </div>
+  <table id="pairTable">
+    <tr>
+      <th style="text-align:left">Ngày</th>
+      <th id="headA">A</th>
+      <th id="headB">B</th>
+    </tr>
+  </table>
+  <p class="hint" style="margin-top:8px">Bảng hiển thị 20 ngày gần nhất có đủ dữ liệu cả 2 đại lượng</p>
+</div>
+
+<!-- Ranking all pairs -->
+<div class="card">
+  <h2>Xếp hạng tương quan — tất cả các cặp</h2>
+  <table id="rankTable">
+    <tr>
+      <th style="text-align:center">Hạng</th>
+      <th style="text-align:left">Cặp đại lượng</th>
+      <th>r</th>
+      <th>Mức độ</th>
+      <th>N ngày</th>
+    </tr>
+  </table>
 </div>
 
 <footer>nghiatruongm1204-product · data via TradingView &amp; internal</footer>
@@ -79,36 +127,138 @@ const SILVER   = "Silver (SI1!)";
 const PROD_COLS= ["Active Trader", "Total Deposit", "New Users", "Profit Fee (USD)", "Total Withdraw", "Lot Converted"];
 const IS_RAW   = m => m.startsWith('raw');
 
-function pearson(xs,ys){
-  const n=xs.length; if(n<5)return null;
-  const mx=xs.reduce((a,b)=>a+b,0)/n,my=ys.reduce((a,b)=>a+b,0)/n;
+// ── stats ─────────────────────────────────────────────────────────────────────
+function pearson(xs, ys) {
+  const n = xs.length;
+  if (n < 5) return null;
+  const mx = xs.reduce((a,b)=>a+b,0)/n, my = ys.reduce((a,b)=>a+b,0)/n;
   let num=0,dx=0,dy=0;
-  for(let i=0;i<n;i++){const ex=xs[i]-mx,ey=ys[i]-my;num+=ex*ey;dx+=ex*ex;dy+=ey*ey;}
-  return(dx===0||dy===0)?null:num/Math.sqrt(dx*dy);
+  for (let i=0;i<n;i++) { const ex=xs[i]-mx,ey=ys[i]-my; num+=ex*ey;dx+=ex*ex;dy+=ey*ey; }
+  return (dx===0||dy===0) ? null : num/Math.sqrt(dx*dy);
 }
 
-function buildCorrTable(){
-  const tbl=document.getElementById('corrTable');
-  const sp=DATA.raw[SILVER]; const sm={};
-  sp.x.forEach((d,i)=>sm[d]=sp.y[i]);
-  let html='<tr><th>Metric</th><th>r</th><th>N days</th></tr>';
-  PROD_COLS.forEach(m=>{
-    const mp=DATA.raw[m]; const mm={};
-    mp.x.forEach((d,i)=>mm[d]=mp.y[i]);
-    const shared=sp.x.filter(d=>mm[d]!=null&&sm[d]!=null);
-    const sv=shared.map(d=>sm[d]),mv=shared.map(d=>mm[d]);
-    const r=pearson(sv,mv);
-    if(r===null){html+=`<tr><td>${m}</td><td>—</td><td>${shared.length}</td></tr>`;return;}
-    const cls=r>0?'pos':'neg';
-    html+=`<tr><td>${m}</td><td class="${cls}">${r>=0?'+':''}${r.toFixed(3)}</td><td>${shared.length}</td></tr>`;
+function getMap(col) {
+  const m={}, p=DATA.raw[col];
+  p.x.forEach((d,i)=>{ if(p.y[i]!=null) m[d]=p.y[i]; });
+  return m;
+}
+
+function sharedPair(colA, colB) {
+  const ma=getMap(colA), mb=getMap(colB);
+  const dates=Object.keys(ma).filter(d=>mb[d]!=null).sort();
+  return {dates, va:dates.map(d=>ma[d]), vb:dates.map(d=>mb[d])};
+}
+
+// ── Silver vs metrics table ───────────────────────────────────────────────────
+function buildCorrTable() {
+  const tbl = document.getElementById('corrTable');
+  let html = '<tr><th>Metric</th><th>r</th><th>N days</th></tr>';
+  PROD_COLS.forEach(m => {
+    const {va,vb,dates} = sharedPair(SILVER, m);
+    const r = pearson(va, vb);
+    if (r===null) { html+=`<tr><td>${m}</td><td>—</td><td>${dates.length}</td></tr>`; return; }
+    const cls = r>0?'pos':'neg';
+    html += `<tr><td>${m}</td><td class="${cls}">${r>=0?'+':''}${r.toFixed(3)}</td><td>${dates.length}</td></tr>`;
   });
-  tbl.innerHTML=html;
+  tbl.innerHTML = html;
 }
 
+// ── Pair selector ─────────────────────────────────────────────────────────────
+function populateSelects() {
+  [document.getElementById('selA'), document.getElementById('selB')].forEach((sel, i) => {
+    ALL_COLS.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = opt.textContent = c;
+      sel.appendChild(opt);
+    });
+    sel.value = ALL_COLS[i === 0 ? 0 : 1];
+  });
+}
+
+function updatePair() {
+  const colA = document.getElementById('selA').value;
+  const colB = document.getElementById('selB').value;
+  document.getElementById('headA').textContent = colA;
+  document.getElementById('headB').textContent = colB;
+
+  if (colA === colB) {
+    document.getElementById('pairResult').textContent = 'r = 1.000';
+    document.getElementById('pairResult').style.color = '#6EE7B7';
+    document.getElementById('pairN').textContent = '';
+    return;
+  }
+
+  const {va, vb, dates} = sharedPair(colA, colB);
+  const r = pearson(va, vb);
+  const res = document.getElementById('pairResult');
+  res.textContent = r===null ? '—' : `r = ${r>=0?'+':''}${r.toFixed(3)}`;
+  res.style.color = r===null ? 'var(--muted)' : r>0 ? '#6EE7B7' : '#FCA5A5';
+  document.getElementById('pairN').textContent = `${dates.length} ngày`;
+
+  // last 20 shared dates
+  const rows = dates.slice(-20).reverse();
+  const tbl = document.getElementById('pairTable');
+  let html = `<tr><th style="text-align:left">Ngày</th><th>${colA}</th><th>${colB}</th></tr>`;
+  rows.forEach((d,i) => {
+    const da = va[dates.indexOf(d)], db = vb[dates.indexOf(d)];
+    const fmtA = da>=1000 ? da.toLocaleString('en-US',{maximumFractionDigits:0}) : da.toFixed(3);
+    const fmtB = db>=1000 ? db.toLocaleString('en-US',{maximumFractionDigits:0}) : db.toFixed(3);
+    const parts = d.split('-');
+    const label = `${parts[2]}/${parts[1]}/${parts[0]}`;
+    html += `<tr><td style="text-align:left">${label}</td><td>${fmtA} ${UNITS[colA]}</td><td>${fmtB} ${UNITS[colB]}</td></tr>`;
+  });
+  tbl.innerHTML = html;
+}
+
+populateSelects();
+document.getElementById('selA').addEventListener('change', updatePair);
+document.getElementById('selB').addEventListener('change', updatePair);
+updatePair();
+
+// ── Ranking all pairs ─────────────────────────────────────────────────────────
+function buildRanking() {
+  const pairs = [];
+  for (let i=0; i<ALL_COLS.length; i++) {
+    for (let j=i+1; j<ALL_COLS.length; j++) {
+      const a=ALL_COLS[i], b=ALL_COLS[j];
+      const {va,vb,dates} = sharedPair(a,b);
+      const r = pearson(va,vb);
+      if (r!==null) pairs.push({a,b,r,n:dates.length});
+    }
+  }
+  pairs.sort((x,y) => y.r - x.r);
+
+  const medals = ['🥇','🥈','🥉'];
+  let html = `<tr><th style="text-align:center">Hạng</th><th style="text-align:left">Cặp đại lượng</th><th>r</th><th style="text-align:left;padding-left:16px">Mức độ</th><th>N ngày</th></tr>`;
+  pairs.forEach((p,i) => {
+    const cls = p.r>0?'pos':'neg';
+    const badge = i<3 ? `<span class="medal">${medals[i]}</span>` : `<span class="medal" style="color:var(--muted)">#${i+1}</span>`;
+    const pct = Math.abs(p.r)*100;
+    const barColor = p.r>0?'#6EE7B7':'#FCA5A5';
+    const bar = `<span class="rank-bar-bg"><span class="rank-bar" style="width:${pct.toFixed(1)}%;background:${barColor}"></span></span>`;
+    html += `<tr>
+      <td style="text-align:center">${badge}</td>
+      <td style="text-align:left">
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${COLORS[p.a]};margin-right:4px;vertical-align:middle"></span>${p.a}
+        <span style="color:var(--muted);margin:0 4px">×</span>
+        <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${COLORS[p.b]};margin-right:4px;vertical-align:middle"></span>${p.b}
+      </td>
+      <td class="${cls}">${p.r>=0?'+':''}${p.r.toFixed(3)}</td>
+      <td style="padding-left:16px">${bar} <span style="font-size:.75rem;color:var(--muted);margin-left:6px">${pct.toFixed(1)}%</span></td>
+      <td>${p.n}</td>
+    </tr>`;
+  });
+  document.getElementById('rankTable').innerHTML = html;
+}
+
+buildCorrTable();
+buildRanking();
+
+// ── Chart ─────────────────────────────────────────────────────────────────────
 let hiddenCols=new Set(), currentMode='norm_s';
 
-function buildDatasets(mode){
-  return ALL_COLS.map(col=>{
+function buildDatasets(mode) {
+  return ALL_COLS.map(col => {
     const pts=DATA[mode][col], isSilver=col===SILVER, isRaw=IS_RAW(mode);
     return {
       label:col,
@@ -124,9 +274,28 @@ function buildDatasets(mode){
   });
 }
 
-const ctx=document.getElementById('myChart').getContext('2d');
-const chart=new Chart(ctx,{
+// crosshair plugin
+const crosshairPlugin = {
+  id:'crosshair',
+  afterDraw(chart) {
+    if (chart._crossX == null) return;
+    const {ctx, chartArea:{top,bottom}} = chart;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(chart._crossX, top);
+    ctx.lineTo(chart._crossX, bottom);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(200,200,200,0.35)';
+    ctx.setLineDash([5,4]);
+    ctx.stroke();
+    ctx.restore();
+  }
+};
+
+const ctx = document.getElementById('myChart').getContext('2d');
+const chart = new Chart(ctx, {
   type:'line',
+  plugins:[crosshairPlugin],
   data:{datasets:buildDatasets('norm_s')},
   options:{
     animation:{duration:350},
@@ -138,12 +307,17 @@ const chart=new Chart(ctx,{
         backgroundColor:'#1A1A1E', borderColor:'#38383F', borderWidth:1,
         titleColor:'#D4D4D8', bodyColor:'#D4D4D8', padding:10,
         callbacks:{
-          label(ctx){
+          title(items) {
+            if(!items.length) return '';
+            const d=items[0].raw.x; const parts=d.split('-');
+            return `${parts[2]}/${parts[1]}/${parts[0]}`;
+          },
+          label(ctx) {
             const col=ctx.dataset.label, d=ctx.raw.x;
             const rp=ctx.dataset.raw_data, idx=rp.x.indexOf(d);
             const rv=idx>=0?rp.y[idx]:null, unit=UNITS[col];
             const normPart=IS_RAW(currentMode)?'':` · norm: ${ctx.parsed.y.toFixed(1)}`;
-            if(rv==null)return ` ${col}: N/A`;
+            if(rv==null) return ` ${col}: N/A`;
             const fmt=rv>=1000?rv.toLocaleString('en-US',{maximumFractionDigits:0}):rv.toFixed(3);
             return ` ${col}: ${fmt} ${unit}${normPart}`;
           },
@@ -151,7 +325,7 @@ const chart=new Chart(ctx,{
       },
     },
     scales:{
-      x:{type:'time',time:{unit:'month',tooltipFormat:'dd/MM/yyyy'},
+      x:{type:'time',time:{unit:'month',tooltipFormat:'yyyy-MM-dd'},
           grid:{color:'#25252988'},ticks:{color:'#52525B'}},
       y:{position:'left',grid:{color:'#25252988'},ticks:{color:'#52525B'},
           title:{display:true,text:'Normalised (0–100)',color:'#52525B',font:{size:11}}},
@@ -162,33 +336,44 @@ const chart=new Chart(ctx,{
   },
 });
 
-document.getElementById('modeGroup').addEventListener('click',e=>{
-  const btn=e.target.closest('.btn'); if(!btn)return;
+// crosshair mouse events
+const canvas = document.getElementById('myChart');
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const ca = chart.chartArea;
+  chart._crossX = (x >= ca.left && x <= ca.right) ? x : null;
+  chart.draw();
+});
+canvas.addEventListener('mouseleave', () => { chart._crossX = null; chart.draw(); });
+
+// mode switcher
+document.getElementById('modeGroup').addEventListener('click', e => {
+  const btn = e.target.closest('.btn'); if(!btn) return;
   document.querySelectorAll('#modeGroup .btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  currentMode=btn.dataset.mode;
-  const isRaw=IS_RAW(currentMode);
-  chart.data.datasets=buildDatasets(currentMode);
-  chart.options.scales.y2.display=isRaw;
-  chart.options.scales.y.title.text=isRaw?'Silver (USD/oz)':'Normalised (0–100)';
+  currentMode = btn.dataset.mode;
+  const isRaw = IS_RAW(currentMode);
+  chart.data.datasets = buildDatasets(currentMode);
+  chart.options.scales.y2.display = isRaw;
+  chart.options.scales.y.title.text = isRaw ? 'Silver (USD/oz)' : 'Normalised (0–100)';
   chart.update();
 });
 
-const legendWrap=document.getElementById('legendWrap');
-ALL_COLS.forEach(col=>{
-  const item=document.createElement('div');
-  item.className='leg-item'; item.dataset.col=col;
-  item.innerHTML=`<span class="leg-dot" style="background:${COLORS[col]}"></span>${col}`;
-  item.addEventListener('click',()=>{
-    if(hiddenCols.has(col))hiddenCols.delete(col);else hiddenCols.add(col);
+// legend
+const legendWrap = document.getElementById('legendWrap');
+ALL_COLS.forEach(col => {
+  const item = document.createElement('div');
+  item.className = 'leg-item';
+  item.innerHTML = `<span class="leg-dot" style="background:${COLORS[col]}"></span>${col}`;
+  item.addEventListener('click', () => {
+    if(hiddenCols.has(col)) hiddenCols.delete(col); else hiddenCols.add(col);
     item.classList.toggle('hidden');
-    const ds=chart.data.datasets.find(d=>d.label===col);
-    if(ds){ds.hidden=hiddenCols.has(col);chart.update();}
+    const ds = chart.data.datasets.find(d=>d.label===col);
+    if(ds) { ds.hidden=hiddenCols.has(col); chart.update(); }
   });
   legendWrap.appendChild(item);
 });
-
-buildCorrTable();
 </script>
 </body>
 </html>
